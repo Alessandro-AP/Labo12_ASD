@@ -36,3 +36,4 @@ CMakeLists.txt
 *.project
 compile_flags.txt
 *.mk
+*.idea

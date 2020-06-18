@@ -23,5 +23,5 @@ struct Piece {
 };
 
 Piece initPiece(int valeur, int x, int y );
-
+void swap(Piece& lhs, Piece& rhs);
 #endif //LABO12_ASD_PIECE_H
