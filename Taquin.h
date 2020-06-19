@@ -18,12 +18,15 @@
 #include "Piece.h"
 #include <array>
 
+enum class Mouvements {HAUT = 0, BAS, GAUCHE, DROITE};
 class Taquin{
 public:
    Taquin();
    Taquin(const std::array<int,9>& array);
    int distanceManhattan ();
    bool estResolu();
+   Piece trouvePiece(int valeur);
+   Taquin prochainTaquin(Taquin taquin, Mouvements movement , int x, int y);
 private:
    std::array< std::array < Piece,3 > ,3 > puzzle;
    //Taquin* parent = nullptr;

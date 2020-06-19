@@ -72,9 +72,9 @@ bool estValide(const std::array<int,9>& array){
 
 }
 
-int distancePiece(const Piece& piece, const Piece& pieceObjectif){
-   int distanceX = abs(piece.x - pieceObjectif.x);
-   int distanceY = abs(piece.y - pieceObjectif.y);
+int distancePiece(const Piece& piece, int cordX, int cordY){
+   int distanceX = abs(piece.x - cordX);
+   int distanceY = abs(piece.y - cordY);
    return distanceX + distanceY;
 }
 
@@ -84,11 +84,58 @@ const size_t puzzleSize = puzzle.size();
 
 for (size_t x = 0; x < puzzleSize; ++x) {
    for (size_t y = 0; y < puzzleSize; ++y) {
-      Piece piece = puzzle[x][y];
-      Piece pieceObjectif = objectif.puzzle[x][y];
-      distance = distancePiece(piece, pieceObjectif);
+      Piece piece = puzzle[x][y]; // 2 1 5
+      int cordX = piece.valeur % 3 + 1;
+      int cordY = (piece.valeur - 1) / 3 ;
+      distance = distancePiece(piece, cordX, cordY);
    }
 }
 
 return distance;
+}
+
+Piece Taquin::trouvePiece(int valeur){
+   if(valeur >= 0 && valeur < 9 ) {
+      const size_t puzzleSize = puzzle.size();
+      for (size_t x = 0; x < puzzleSize; ++x) {
+         for (size_t y = 0; y < puzzleSize; ++y) {
+            if (puzzle[x][y].valeur == valeur)
+               return puzzle[x][y];
+         }
+      }
+   }
+   else{
+      throw std::invalid_argument("Taquin pas valide");
+   }
+}
+
+Taquin Taquin::prochainTaquin(Taquin taquin, Mouvements movement , int videX, int videY){
+   /*
+   switch (movement) {
+      case Mouvements::HAUT  : if(videY - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX][videY-1]);break;
+      case Mouvements::BAS   : if(videY + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX][videY+1]);break;
+      case Mouvements::DROITE: if(videX + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX+1][videY]);break;
+      case Mouvements::GAUCHE: if(videX - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX-1][videY]);break;
+   }
+    */
+   int nveauX;
+   int nveauY;
+   switch (movement) {
+      case Mouvements::HAUT  : if(videY - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX][videY-1]);break;
+      case Mouvements::BAS   : if(videY + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX][videY+1]);break;
+      case Mouvements::DROITE: if(videX + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX+1][videY]);break;
+      case Mouvements::GAUCHE: if(videX - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX-1][videY]);break;
+   }
+
+   return taquin;
+}
+
+void resoudreTaquin(Taquin& taquin){
+   Piece espaceVide = taquin.trouvePiece(0);
+   int cordX = espaceVide.x;
+   int cordY = espaceVide.y;
+   prochaineTaquin(taquin, Mouvements::HAUT, cordX, cordY);
+
+   prochaineTaquin(taquin, Mouvements::BAS , cordX, cordY);
+
 }
