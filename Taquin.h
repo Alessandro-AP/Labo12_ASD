@@ -16,23 +16,31 @@
 #ifndef LABO12_ASD_TAQUIN_H
 #define LABO12_ASD_TAQUIN_H
 #include "Piece.h"
+#include <string>
 #include <array>
+#include <vector>
 
 enum class Mouvements {HAUT = 0, BAS, GAUCHE, DROITE};
 class Taquin{
 public:
-   Taquin();
-   Taquin(const std::array<int,9>& array);
-   int distanceManhattan ();
-   bool estResolu();
-   Piece trouvePiece(int valeur);
-   Taquin prochainTaquin(Taquin taquin, Mouvements movement , int x, int y);
+	Taquin();
+	Taquin(const std::array<int,9>& array);
+	int distanceManhattan ();
+	bool estResolu();
+	Piece trouvePiece(int valeur);
+	std::vector getPossibleMoves();
 private:
-   std::array< std::array < Piece,3 > ,3 > puzzle;
-   //Taquin* parent = nullptr;
+	std::array< std::array < Piece,3 > ,3 > puzzle;
+	//Taquin* parent = nullptr;
+	std::vector _possibleMoves; // calculé pour permettre à l'algo d'exploration de savoir quels sont les enfants
+								// à explorer plus loin dans l'arbre
+	void evaluatePossibleMoves(std::vector& movesTable);
+	
+	//Taquin resolu/objectif
+	static const Taquin objectif;
 };
 
-bool estValide(const std::array<int,9>& array);
+bool inputValide(const std::array<int,9>& array);
 
 
 #endif //LABO12_ASD_TAQUIN_H

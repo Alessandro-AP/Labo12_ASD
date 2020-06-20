@@ -18,8 +18,6 @@
 #include "Taquin.h"
 #include <exception>
 
-//Taquin resolu/objectif
-Taquin objectif;
 
 //Le constructeur par défaut crée un taquin résolu
 Taquin::Taquin(){
@@ -59,7 +57,7 @@ bool Taquin::estResolu(){
 	return true;
 }
 
-bool estValide(const std::array<int,9>& array){
+bool inputValide(const std::array<int,9>& array){
 	int inversions = 0;
 
 	for ( int i = 0; i < 9; i++ )
@@ -90,7 +88,6 @@ int Taquin::distanceManhattan(){
 			distance += distancePiece(piece, cordX, cordY);
 		}
 	}
-
 	return distance;
 }
 
@@ -109,33 +106,6 @@ Piece Taquin::trouvePiece(int valeur){
 	}
 }
 
-Taquin Taquin::prochainTaquin(Taquin taquin, Mouvements movement , int videX, int videY){
-	/*
-	switch (movement) {
-		case Mouvements::HAUT  : if(videY - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX][videY-1]);break;
-		case Mouvements::BAS   : if(videY + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX][videY+1]);break;
-		case Mouvements::DROITE: if(videX + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX+1][videY]);break;
-		case Mouvements::GAUCHE: if(videX - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX-1][videY]);break;
-	}
-	*/
-	int nveauX;
-	int nveauY;
-	switch (movement) {
-		case Mouvements::HAUT  : if(videY - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX][videY-1]);break;
-		case Mouvements::BAS   : if(videY + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX][videY+1]);break;
-		case Mouvements::DROITE: if(videX + 1 <= 2) swap(puzzle[videX][videY], puzzle[videX+1][videY]);break;
-		case Mouvements::GAUCHE: if(videX - 1 >= 0) swap(puzzle[videX][videY], puzzle[videX-1][videY]);break;
-	}
-
-	return taquin;
-}
-
-void resoudreTaquin(Taquin& taquin){
-	Piece espaceVide = taquin.trouvePiece(0);
-	int cordX = espaceVide.x;
-	int cordY = espaceVide.y;
-	prochaineTaquin(taquin, Mouvements::HAUT, cordX, cordY);
-
-	prochaineTaquin(taquin, Mouvements::BAS , cordX, cordY);
-
+std::vector Taquin::getPossibleMoves() {
+	return _possibleMoves;
 }
