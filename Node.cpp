@@ -26,12 +26,12 @@ int Node::getPriority() const {
 	return _priority;
 }
 
-std::vector<int> Node::getPossibleMoves() {
+std::vector<int> Node::getPossibleMoves() const {
 	return _taquin.getPossibleMoves(); 
 }
 
 
-std::vector<int> getPreviousMoves() {
+std::vector<int> Node::getPreviousMoves() const {
 	return _previousMoves;
 }
 

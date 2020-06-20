@@ -108,10 +108,15 @@ Piece Taquin::trouvePiece(int valeur){
 	}
 }
 
-std::vector<int> Taquin::getPossibleMoves() {
+void Taquin::evaluatePossibleMoves(std::vector<int>& movesTable){
+
+}
+
+std::vector<int> Taquin::getPossibleMoves() const {
 	return _possibleMoves;
 }
 
-void Taquin::swap(Piece empl1, int empl2) {
+void Taquin::swapPiece(Piece empl1, int empl2) {
 	swap(empl1, puzzle[empl2%3][empl2/3]);
+	evaluatePossibleMoves(_possibleMoves);
 }

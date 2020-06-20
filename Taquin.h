@@ -28,8 +28,8 @@ public:
 	int distanceManhattan ();
 	bool estResolu();
 	Piece trouvePiece(int valeur);
-	std::vector<int> getPossibleMoves();
-	void swap(Piece lhs, int empl2);
+	std::vector<int> getPossibleMoves() const;
+	void swapPiece(Piece lhs, int empl2);
 	
 private:
 	std::array< std::array < Piece,3 > ,3 > puzzle;
@@ -37,7 +37,7 @@ private:
 	std::vector<int> _possibleMoves; // calculé pour permettre à l'algo d'exploration de savoir quels sont les enfants
 								// à explorer plus loin dans l'arbre
 	void evaluatePossibleMoves(std::vector<int>& movesTable);
-	
+
 	
 };
 

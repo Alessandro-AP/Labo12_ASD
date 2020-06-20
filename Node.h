@@ -9,13 +9,13 @@
 class Node {
 	
 public:
-	Node(Taquin taquin, int level, int priority, std::vector<int> previousMoves);
+	Node(Taquin taquin, int level, std::vector<int> previousMoves);
 	Node(std::array<int, 9> array);
 	Taquin getTaquin();
 	int getLevel() const;
 	int getPriority() const;
 	std::vector<int> getPossibleMoves() const;
-	std::vector<int> getPreviousMoves();
+	std::vector<int> getPreviousMoves() const;
 	void updatePriority();
 	
 private:
