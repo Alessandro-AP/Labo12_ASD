@@ -20,7 +20,6 @@
 #include <array>
 #include <vector>
 
-enum class Mouvements {HAUT = 0, BAS, GAUCHE, DROITE};
 class Taquin{
 public:
 	Taquin();
@@ -29,7 +28,7 @@ public:
 	bool estResolu();
 	Piece trouvePiece(int valeur);
 	std::vector<int> getPossibleMoves() const;
-	void swapPiece(Piece lhs, int empl2);
+	void swapPiece(Piece& lhs, int empl2);
 	
 private:
 	std::array< std::array < Piece,3 > ,3 > puzzle;

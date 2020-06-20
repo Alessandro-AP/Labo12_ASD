@@ -16,8 +16,8 @@
 /* A FAIRE ALGORITHME DE RESOLUTION A* */
 
 #include "Taquin.h"
-#include <exception>
-
+#include <stdexcept>
+#include <algorithm>
 //Taquin resolu/objectif
 	Taquin objectif;
 
@@ -42,6 +42,7 @@ Taquin::Taquin(const std::array<int,9>& array){
 				puzzle[x][y] = initPiece(valeur, x, y);
 			}
 		}
+		evaluatePossibleMoves(_possibleMoves);
 	}
 	else {
 		throw std::invalid_argument("Taquin pas valide");
@@ -108,15 +109,57 @@ Piece Taquin::trouvePiece(int valeur){
 	}
 }
 
-void Taquin::evaluatePossibleMoves(std::vector<int>& movesTable){
+void Taquin::evaluatePossibleMoves(std::vector<int>& movesTable) {
+   if (movesTable.size() < 0 || movesTable.size() > 9)
+      throw std::out_of_range("Vector pas valide");
+   const size_t puzzleSize = puzzle.size();
+   int index;
+   for (size_t x = 0; x < puzzleSize; ++x) {
+      for (size_t y = 0; y < puzzleSize; ++y) {
+         if (puzzle[x][y].valeur == 0)
+            index = x * puzzleSize + y;
+      }
 
+      switch (index) {
+         case 0:
+            movesTable = std::vector<int>{1, 3};
+            break;
+         case 1:
+            movesTable = std::vector<int>{0, 2, 4};
+            break;
+         case 2:
+            movesTable = std::vector<int>{1, 5};
+            break;
+         case 3:
+            movesTable = std::vector<int>{4, 0, 6};
+            break;
+         case 4:
+            movesTable = std::vector<int>{3, 5, 1, 7};
+            break;
+         case 5:
+            movesTable = std::vector<int>{4, 2, 8};
+            break;
+         case 6:
+            movesTable = std::vector<int>{7, 3};
+            break;
+         case 7:
+            movesTable = std::vector<int>{6, 8, 4};
+            break;
+         case 8:
+            movesTable = std::vector<int>{7, 5};
+            break;
+         default:
+            throw std::out_of_range("Vector pas valide");
+      }
+
+   }
 }
 
 std::vector<int> Taquin::getPossibleMoves() const {
 	return _possibleMoves;
 }
 
-void Taquin::swapPiece(Piece empl1, int empl2) {
+void Taquin::swapPiece(Piece& empl1, int empl2) {
 	swap(empl1, puzzle[empl2%3][empl2/3]);
 	evaluatePossibleMoves(_possibleMoves);
 }
