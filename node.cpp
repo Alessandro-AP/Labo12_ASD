@@ -1,10 +1,11 @@
 #include "Node.h"
 #define FACTEUR_ELARGISSEMENT 10
 
-Node::Node(Taquin taquin, int level, int priority) {
+Node::Node(Taquin taquin, int level, std::vector<int> previousMoves) {
 	_taquin = taquin;
 	_level = level;
-	_priority = priority;
+	updatePriority();
+	_previousMoves = previousMoves;
 }
 
 Node::Node(std::array<int, 9> array) {
@@ -27,6 +28,11 @@ int Node::getPriority() const {
 
 std::vector<int> Node::getPossibleMoves() {
 	return _taquin.getPossibleMoves(); 
+}
+
+
+std::vector<int> getPreviousMoves() {
+	return _previousMoves;
 }
 
 void Node::updatePriority() {

@@ -29,6 +29,7 @@ public:
 	bool estResolu();
 	Piece trouvePiece(int valeur);
 	std::vector<int> getPossibleMoves();
+	void swap(Piece lhs, int empl2);
 	
 private:
 	std::array< std::array < Piece,3 > ,3 > puzzle;

@@ -9,18 +9,20 @@
 class Node {
 	
 public:
-	Node(Taquin taquin, int level, int priority);
+	Node(Taquin taquin, int level, int priority, std::vector<int> previousMoves);
 	Node(std::array<int, 9> array);
 	Taquin getTaquin();
 	int getLevel() const;
 	int getPriority() const;
-	std::vector<int> getPossibleMoves();
+	std::vector<int> getPossibleMoves() const;
+	std::vector<int> getPreviousMoves();
 	void updatePriority();
 	
 private:
 	Taquin _taquin; // taquin membre, un des etats du graphe
 	int _level; // nombre d'étapes utilisées pour arriver à l'étape actuelle
 	int _priority; // priority = level + Manhattan du taquin membre * facteur
+	std::vector<int> _previousMoves; // liste des moves utilisés pour parvenir à la node actuelle
 	const int manhattanDistance();
 	
 	

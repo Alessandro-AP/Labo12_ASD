@@ -85,8 +85,8 @@ int Taquin::distanceManhattan(){
 	for (size_t x = 0; x < puzzleSize; ++x) {
 		for (size_t y = 0; y < puzzleSize; ++y) {
 			Piece piece = puzzle[x][y]; // 2 1 5
-			int cordX = piece.valeur % 3 + 1;
-			int cordY = (piece.valeur - 1) / 3 ;
+			int cordX = piece.valeur % 3;
+			int cordY = (piece.valeur) / 3;
 			distance += distancePiece(piece, cordX, cordY);
 		}
 	}
@@ -110,4 +110,8 @@ Piece Taquin::trouvePiece(int valeur){
 
 std::vector<int> Taquin::getPossibleMoves() {
 	return _possibleMoves;
+}
+
+void Taquin::swap(Piece empl1, int empl2) {
+	swap(empl1, puzzle[empl2%3][empl2/3]);
 }
