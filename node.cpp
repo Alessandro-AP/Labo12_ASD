@@ -17,26 +17,26 @@ Taquin Node::getTaquin() {
 	return _taquin;
 }
 
-int Node::getLevel() {
+int Node::getLevel() const {
 	return _level;
 }
 
-int Node::getPriority() {
+int Node::getPriority() const {
 	return _priority;
 }
 
-std::vector Node::getPossibleMoves() {
+std::vector<int> Node::getPossibleMoves() {
 	return _taquin.getPossibleMoves(); 
 }
 
 void Node::updatePriority() {
-	_priority = _level + manhattanDistance() * FACTEUR_ELARGISSEMENT
+	_priority = _level + manhattanDistance() * FACTEUR_ELARGISSEMENT;
 }
 
 const int Node::manhattanDistance() {
 	return _taquin.distanceManhattan();
 }
 
-bool operator<(const node &a, const node &b) {
+bool operator<(const Node &a, const Node &b) {
 	return a.getPriority() > b.getPriority();
 }

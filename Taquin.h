@@ -28,16 +28,16 @@ public:
 	int distanceManhattan ();
 	bool estResolu();
 	Piece trouvePiece(int valeur);
-	std::vector getPossibleMoves();
+	std::vector<int> getPossibleMoves();
+	
 private:
 	std::array< std::array < Piece,3 > ,3 > puzzle;
 	//Taquin* parent = nullptr;
-	std::vector _possibleMoves; // calculé pour permettre à l'algo d'exploration de savoir quels sont les enfants
+	std::vector<int> _possibleMoves; // calculé pour permettre à l'algo d'exploration de savoir quels sont les enfants
 								// à explorer plus loin dans l'arbre
-	void evaluatePossibleMoves(std::vector& movesTable);
+	void evaluatePossibleMoves(std::vector<int>& movesTable);
 	
-	//Taquin resolu/objectif
-	static const Taquin objectif;
+	
 };
 
 bool inputValide(const std::array<int,9>& array);

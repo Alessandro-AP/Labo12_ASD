@@ -5,10 +5,23 @@
 
 std::string pathFind(const Node startNode) {
 	static int index = 0;// index de queue
-	static node* startNode; // node de départ
+	static Node currentNode = startNode; // node de départ
+	std::string toReturn;
+	
 	
 	std::priority_queue<Node> nodeQueue; // priority queue de nodes
-	std::vector<int> startNode->getPossibleMoves(); // liste des mouvements possibles avec la situation de départ
+	currentNode.getPossibleMoves(); // liste des mouvements possibles avec la situation de départ
+	
+	while (!nodeQueue.empty()) {
+		currentNode = nodeQueue.top();
+		nodeQueue.pop();
+		// test de resolution
+		if (currentNode.getTaquin().estResolu()) {
+			break;
+		}
+		
+	}
 	
 	
+	return toReturn;
 }

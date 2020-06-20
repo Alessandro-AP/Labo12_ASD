@@ -12,9 +12,9 @@ public:
 	Node(Taquin taquin, int level, int priority);
 	Node(std::array<int, 9> array);
 	Taquin getTaquin();
-	int getLevel();
-	int getPriority();
-	std::vector getPossibleMoves();
+	int getLevel() const;
+	int getPriority() const;
+	std::vector<int> getPossibleMoves();
 	void updatePriority();
 	
 private:
@@ -24,8 +24,8 @@ private:
 	const int manhattanDistance();
 	
 	
-}
+};
 
-bool operator<(const node &a, const node &b);
+bool operator<(const Node &a, const Node &b);
 
 #endif //LABO12_ASD_NODE_H

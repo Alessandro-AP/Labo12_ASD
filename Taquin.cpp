@@ -18,6 +18,8 @@
 #include "Taquin.h"
 #include <exception>
 
+//Taquin resolu/objectif
+	Taquin objectif;
 
 //Le constructeur par défaut crée un taquin résolu
 Taquin::Taquin(){
@@ -32,7 +34,7 @@ Taquin::Taquin(){
 
 //Constructeur avec un tableaux d'elements
 Taquin::Taquin(const std::array<int,9>& array){
-	if(estValide(array)) {
+	if(inputValide(array)) {
 		const size_t puzzleSize = puzzle.size();
 		for (std::size_t x = 0; x < puzzleSize; ++x) {
 			for (std::size_t y = 0; y < puzzleSize; ++y) {
@@ -106,6 +108,6 @@ Piece Taquin::trouvePiece(int valeur){
 	}
 }
 
-std::vector Taquin::getPossibleMoves() {
+std::vector<int> Taquin::getPossibleMoves() {
 	return _possibleMoves;
 }
