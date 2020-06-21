@@ -15,7 +15,7 @@ std::string pathFind(const Node startNode) {
 	nodeQueue.push(startNode);
 
 
-	do {
+	do {//1 2 5 3 4 0 6 7 8
 		currentNode = nodeQueue.top();
 		nodeQueue.pop();
 		std::vector<int> nextMoves = currentNode.getPossibleMoves(); // liste des mouvements possibles avec la situation actuelle
@@ -25,14 +25,14 @@ std::string pathFind(const Node startNode) {
 			std::vector<int> tempPreviousMoves = currentNode.getPreviousMoves(); // copie de liste de mouvements precedents de la node actuelle
 			tempPreviousMoves.push_back(nextMoves[i]); // adjonction du dernier mouvement a la copie de liste
 			Taquin tempTaquin = currentNode.getTaquin(); // copie du taquin actuel
-			Piece tempPiece = tempTaquin.trouvePiece(0);
+			int tempPiece = tempTaquin.trouvePiece(0);
 			tempTaquin.swapPiece(tempPiece, nextMoves[i]); // modification de la copie
 			nodeQueue.push((Node){tempTaquin, currentNode.getLevel()+1, tempPreviousMoves}); // construction et adjonction de la nouvelle node dans la nodeQueue
 		}
 		
 		// test de resolution
 		if (currentNode.getTaquin().estResolu()) {
-			std::cout << "Solution la plus courte: ";
+			std::cout << "Solution la plus courte :";
 			while (!nodeQueue.empty()) {
 				nodeQueue.pop(); // destruction de toutes les nodes restantes, garbage collection
 			}

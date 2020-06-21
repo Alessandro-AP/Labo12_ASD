@@ -26,9 +26,9 @@ public:
 	Taquin(const std::array<int,9>& array);
 	int distanceManhattan ();
 	bool estResolu();
-	Piece& trouvePiece(int valeur);
+	int trouvePiece(int valeur);
 	std::vector<int> getPossibleMoves() const;
-	void swapPiece(Piece& lhs, int empl2);
+	void swapPiece(int lhs, int rhs);
 	
 private:
 	std::array< std::array < Piece,3 > ,3 > puzzle;

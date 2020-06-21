@@ -97,7 +97,7 @@ int Taquin::distanceManhattan(){
 	return distance;
 }
 
-Piece& Taquin::trouvePiece(int valeur){
+int Taquin::trouvePiece(int valeur){
 	if(!(valeur >= 0 && valeur < 9 )) {
 		throw std::invalid_argument("Taquin pas valide");
 	}
@@ -105,7 +105,7 @@ Piece& Taquin::trouvePiece(int valeur){
 	for (size_t x = 0; x < puzzleSize; ++x) {
 		for (size_t y = 0; y < puzzleSize; ++y) {
 			if (puzzle[x][y].valeur == valeur)
-				return puzzle[x][y];
+				return x * puzzleSize + y;
 		}
 	}
 }
@@ -156,7 +156,7 @@ std::vector<int> Taquin::getPossibleMoves() const {
 	return _possibleMoves;
 }
 
-void Taquin::swapPiece(Piece& empl1, int empl2) {
-	swap(empl1, puzzle[empl2%3][empl2/3]);
+void Taquin::swapPiece(int lhs, int rhs) {
+	swap(puzzle[lhs/3][lhs%3], puzzle[rhs/3][rhs%3]);
 	evaluatePossibleMoves(_possibleMoves);
 }
