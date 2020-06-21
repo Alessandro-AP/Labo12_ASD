@@ -25,11 +25,14 @@
 Taquin::Taquin(){
 	const size_t puzzleSize = puzzle.size();
 	for(std::size_t x = 0; x < puzzleSize; ++x){
-		for(std::size_t y= 0; y < puzzleSize; ++y){
-			size_t valeur = x *puzzleSize  + y;
-			puzzle[x][y] = initPiece(valeur, x, y);
+		for(std::size_t y = 0; y < puzzleSize; ++y){
+			size_t valeur = x * puzzleSize  + y;
+			puzzle[x][y] = initPiece(valeur, x, y); // 0 1 2     1 2 5 
+													// 3 4 5	 3 4 0
+													// 6 7 8 	 6 7 8
 		}
 	}
+	evaluatePossibleMoves(_possibleMoves);
 }
 
 //Constructeur avec un tableaux d'elements
@@ -66,7 +69,7 @@ bool inputValide(const std::array<int,9>& array){
 	for ( int i = 0; i < 9; i++ )
 		for ( int j = i + 1; j < 9; j++ )
 			if ( array[j] > array[i] && array[i] != 0 && array[j] != 0 )
-				inversions++;
+				inversions++; // 1 2 5 3 4 0 6 7 8 doit marcher mais donne une exception
 
 	// Si le nombre d'inversion est paire le puzzle est valide
 	return inversions % 2 == 0;
@@ -94,24 +97,20 @@ int Taquin::distanceManhattan(){
 	return distance;
 }
 
-Piece Taquin::trouvePiece(int valeur){
-	if(valeur >= 0 && valeur < 9 ) {
-		const size_t puzzleSize = puzzle.size();
-		for (size_t x = 0; x < puzzleSize; ++x) {
-			for (size_t y = 0; y < puzzleSize; ++y) {
-				if (puzzle[x][y].valeur == valeur)
-				return puzzle[x][y];
-			}
-		}
-	}
-	else{
+Piece& Taquin::trouvePiece(int valeur){
+	if(!(valeur >= 0 && valeur < 9 )) {
 		throw std::invalid_argument("Taquin pas valide");
+	}
+	const size_t puzzleSize = puzzle.size();
+	for (size_t x = 0; x < puzzleSize; ++x) {
+		for (size_t y = 0; y < puzzleSize; ++y) {
+			if (puzzle[x][y].valeur == valeur)
+				return puzzle[x][y];
+		}
 	}
 }
 
 void Taquin::evaluatePossibleMoves(std::vector<int>& movesTable) {
-   if (movesTable.size() < 0 || movesTable.size() > 9)
-      throw std::out_of_range("Vector pas valide");
    const size_t puzzleSize = puzzle.size();
    int index;
    for (size_t x = 0; x < puzzleSize; ++x) {
@@ -119,40 +118,38 @@ void Taquin::evaluatePossibleMoves(std::vector<int>& movesTable) {
          if (puzzle[x][y].valeur == 0)
             index = x * puzzleSize + y;
       }
-
-      switch (index) {
-         case 0:
-            movesTable = std::vector<int>{1, 3};
-            break;
-         case 1:
-            movesTable = std::vector<int>{0, 2, 4};
-            break;
-         case 2:
-            movesTable = std::vector<int>{1, 5};
-            break;
-         case 3:
-            movesTable = std::vector<int>{4, 0, 6};
-            break;
-         case 4:
-            movesTable = std::vector<int>{3, 5, 1, 7};
-            break;
-         case 5:
-            movesTable = std::vector<int>{4, 2, 8};
-            break;
-         case 6:
-            movesTable = std::vector<int>{7, 3};
-            break;
-         case 7:
-            movesTable = std::vector<int>{6, 8, 4};
-            break;
-         case 8:
-            movesTable = std::vector<int>{7, 5};
-            break;
-         default:
-            throw std::out_of_range("Vector pas valide");
-      }
-
    }
+  switch (index) {
+	 case 0:
+		movesTable = std::vector<int>{1, 3};
+		break;
+	 case 1:
+		movesTable = std::vector<int>{0, 2, 4};
+		break;
+	 case 2:
+		movesTable = std::vector<int>{1, 5};
+		break;
+	 case 3:
+		movesTable = std::vector<int>{4, 0, 6};
+		break;
+	 case 4:
+		movesTable = std::vector<int>{3, 5, 1, 7};
+		break;
+	 case 5:
+		movesTable = std::vector<int>{4, 2, 8};
+		break;
+	 case 6:
+		movesTable = std::vector<int>{7, 3};
+		break;
+	 case 7:
+		movesTable = std::vector<int>{6, 8, 4};
+		break;
+	 case 8:
+		movesTable = std::vector<int>{7, 5};
+		break;
+	 default:
+		throw std::out_of_range("Vector pas valide");
+  }
 }
 
 std::vector<int> Taquin::getPossibleMoves() const {

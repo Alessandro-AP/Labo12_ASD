@@ -27,6 +27,4 @@ Piece initPiece(int valeur, int x, int y ){
 
 void swap(Piece& lhs, Piece& rhs){
    std::swap(lhs.valeur, rhs.valeur);
-   std::swap(lhs.x, rhs.x);
-   std::swap(lhs.y, rhs.x);
 }
